@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+:root {
+    --bg-color: #E8D9FA;
+    --accent-purple: #9135FF;
+    --box-white: #FEFEFE;
+    --text-main: #606269;
+}
+
+body {
+    background-color: var(--bg-color);
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+.main-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+    justify-content: center; /* Esto centra la tarjeta verticalmente */
+}
+
+/* --- La Tarjeta de Login Blanca --- */
+.split-screen {
+    display: flex;
+    width: 1034px;      /* Medida exacta */
+    height: 754px;      /* Medida exacta */
+    background: white;
+    border-radius: 15px; /* Bordes redondeados de 15px */
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    margin: auto;
+    transform: scale(0.65);
+}
+
+.left-panel {
+    width: 517px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra todo horizontalmente */
+    padding-top: 107px;  /* 107px desde el techo del rectángulo */
+    color: var(--text-main);
+}
+
+.texto-hola {
+    font-size: 25px;
+    font-weight: 600; /* Semibold */
+    margin: 0;
+}
+
+.texto-bienvenido {
+    font-size: 20px;
+    font-weight: 600; /* Semibold */
+    margin: 0;
+    margin-top: 32px; /* 32px desde el hola */
+}
+
+.texto-porfavor {
+    font-size: 15px;
+    font-weight: 400; /* Regular */
+    margin: 0;
+    margin-top: 42px; /* 42px desde el bienvenido */
+}
+
+.login-form {
+    margin-top: 65px; /* 65px desde el por favor */
+    width: 365px; /* El ancho exacto de los inputs */
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 22px; /* Distancia a la contraseña (22px) */
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    font-size: 15px;
+    font-weight: 500; /* Medium */
+    margin-bottom: 5px; /* 5px de distancia al input */
+    text-align: left;
+}
+
+.form-control {
+    width: 100%; /* Toma los 365px del contenedor */
+    height: 45px;
+    border-radius: 5px; /* Bordes de 5px */
+    border: 1px solid #CECECE; /* El color exacto de tu borde */
+    padding: 0 15px;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-main);
+    box-sizing: border-box; /* Evita que el padding sume tamaño */
+    outline: none;
+}
+
+.link-container {
+    text-align: right;
+    margin-top: 10px; /* 10px desde el input de contraseña */
+}
+
+.forgot-link {
+    font-size: 10px;
+    font-weight: 500; /* Medium */
+    color: var(--accent-purple);
+    text-decoration: none;
+}
+
+.btn-submit {
+    width: 296px;       /* Medida exacta */
+    height: 45px;       /* Medida exacta */
+    background: var(--accent-purple); 
+    color: white;
+    font-size: 15px;
+    font-weight: 600;   /* Semibold */
+    border: none;
+    border-radius: 5px; /* Bordes de 5px */
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    margin: 50px auto 0 auto; /* 50px exactos desde arriba y auto para centrarlo */
+    display: block;
+}
+
+/* Panel Derecho (La Imagen) */
+.right-panel {
+    width: 517px;
+    background-color: #F3F4F6;
+    background-image: url('../img/myblog-login-image.jpg'); 
+    background-size: cover;
+    background-position: center;
+}
+
+.error-message {
+    background-color: #FEE2E2; /* Rojo muy clarito */
+    color: #DC2626;            /* Texto rojo profesional */
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid #FECACA;
+}
