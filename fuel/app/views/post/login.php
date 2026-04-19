@@ -19,6 +19,7 @@
             <div class="form-group">
                 <label>Contraseña</label>
                 <input type="password" name="password" required class="form-control">
+                
                 <div class="link-container">
                     <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
                 </div>

@@ -28,11 +28,16 @@ class Controller_Posts extends Controller_Template {
         $this->template->content = View::forge('post/add');
     }
 
-    public function action_view($id) {
+    // --- AQUÍ ESTÁ LA VERSIÓN CORREGIDA Y ÚNICA DE action_view ---
+    public function action_view($id = null) {
+        // Si no mandan ID, lo regresamos a la portada
+        is_null($id) and Response::redirect('/myblog/public/posts');
+
         $post = Model_Post::find($id);
         $data = array('post' => $post);
+        
         $this->template->title = 'Ver Post';
-        $this->template->content = View::forge('post/view', $data);
+        $this->template->content = View::forge('post/view', $data); // Nota que dice 'post/view'
     }
 
     public function action_edit($id) {
@@ -67,7 +72,6 @@ class Controller_Posts extends Controller_Template {
     // --- LÓGICA DE LOGIN ---
     public function action_login()
     {
-        // Si ya está logueado, lo mandamos al index
         if (Session::get('logged_in')) {
             Response::redirect('/myblog/public/posts');
         }
@@ -76,13 +80,11 @@ class Controller_Posts extends Controller_Template {
             $username = Input::post('username');
             $password = Input::post('password');
 
-            // Verificación simple
-            if ($username === 'mariana' && $password === 'code123') {
+            if ($username === 'admin' && $password === '123') {
                 Session::set('logged_in', true);
                 Session::set_flash('success', '¡Bienvenida de vuelta!');
                 Response::redirect('/myblog/public/posts');
             } else {
-                // Si falla, creamos el mensaje de error y recargamos la página
                 Session::set_flash('error', 'Usuario o contraseña incorrectos.');
                 Response::redirect('/myblog/public/posts/login');
             }
@@ -96,6 +98,6 @@ class Controller_Posts extends Controller_Template {
     public function action_logout()
     {
         Session::destroy();
-        // Nota: Después de destruir la sesión, el flash de éxito no siempre persiste, 
-        // pero es una buena práctica intentarlo o redirigir directamente.
-        Response::redirect('/myblog/public/
+        Response::redirect('/myblog/public/posts');
+    }
+}

@@ -8,23 +8,22 @@
 </head>
 <body>
     <div class="main-container">
+        
         <?php if (Uri::string() !== 'posts/login'): ?>
-    <header class="top-header">
-        <div class="logo-text">Code & Tonic</div>
-        <nav class="nav-links">
-            <a href="/myblog/public/posts">Inicio</a>
-            <?php if(Session::get('logged_in')) : ?>
-                <a href="/myblog/public/posts/logout">Cerrar Sesión</a>
-            <?php else : ?>
-                <a href="/myblog/public/posts/login">Iniciar Sesión</a>
-            <?php endif; ?>
-        </nav>
-    </header>
-<?php endif; ?>
+            <header class="top-header">
+                <div class="logo-text"><span class="code">Code</span><span class="tonic">&Tonic</span></div>
+                
+                <?php if(Session::get('logged_in')) : ?>
+                    <a href="/myblog/public/posts/logout" class="header-action-right" onclick="return confirm('¿Estás segura de que deseas cerrar sesión?');">
+                        <img src="/myblog/public/assets/img/logout-icon.png" alt="Salir">
+                    </a>
+                <?php endif; ?>
 
-        <main class="main-layout">
+            </header>
+        <?php endif; ?> <main class="main-layout">
             <?php echo $content; ?>
         </main>
+
     </div>
 </body>
 </html>
