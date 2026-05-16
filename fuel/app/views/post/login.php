@@ -1,32 +1,33 @@
 <div class="split-screen">
+    
     <div class="left-panel">
-        <h1 class="texto-hola">¡Hola!</h1>
-        <h2 class="texto-bienvenido">Bien Venido a tu blog</h2>
-        <p class="texto-porfavor">Por favor, inicia sesión para gestionar tu blog.</p>
+        <p class="texto-hola">Hola Mariana,</p>
+        <p class="texto-bienvenido">Bienvenida a Code&Tonic</p>
+        <p class="texto-porfavor">Por favor, inicia sesión en tu cuenta de administradora</p>
 
-        <?php if (Session::get_flash('error')): ?>
-            <div class="error-message">
-                <?php echo Session::get_flash('error'); ?>
-            </div>
-        <?php endif; ?>
+        <form class="login-form" action="" method="POST">
+            
+            <?php if (Session::get_flash('error')): ?>
+                <div class="error-message">
+                    <?php echo Session::get_flash('error'); ?>
+                </div>
+            <?php endif; ?>
 
-        <?php echo Form::open(array('action' => '/myblog/public/posts/login', 'method' => 'POST', 'class' => 'login-form')); ?>
             <div class="form-group">
                 <label>Usuario</label>
-                <input type="text" name="username" required class="form-control">
+                <input type="text" name="username" class="form-control" required>
             </div>
             
             <div class="form-group">
                 <label>Contraseña</label>
-                <input type="password" name="password" required class="form-control">
-                
-                <div class="link-container">
-                    <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
-                </div>
+                <input type="password" name="password" class="form-control" required>
             </div>
             
-            <button type="submit" class="btn-submit">Acceder</button>
-        <?php echo Form::close(); ?>
+            <button type="submit" class="btn-submit">Iniciar Sesión</button>
+        </form>
     </div>
-    <div class="right-panel"></div>
+    
+    <div class="right-panel">
+        </div>
+    
 </div>

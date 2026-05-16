@@ -31,9 +31,6 @@ body {
     box-sizing: border-box;
 }
 
-/* =========================================
-   LOGIN SCREEN
-   ========================================= */
 .split-screen {
     display: flex;
     width: 1034px;
@@ -155,9 +152,6 @@ body {
 #password-requirements li.invalid { color: #DC2626; }
 #password-requirements li.valid { color: #16A34A; }
 
-/* =========================================
-   HEADER
-   ========================================= */
 .top-header {
     width: 1130px;
     height: 74px;
@@ -192,15 +186,13 @@ body {
 .header-action-right img { width: 24px; height: 24px; object-fit: contain; }
 .header-action-right.text-link { color: var(--text-main); font-weight: 500; font-size: 15px; }
 
-/* =========================================
-   HERO SECTION
-   ========================================= */
+
 .hero-section {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 156px;
-    margin-bottom: 80px;
+    margin-bottom: 30px;
 }
 
 .hero-image img {
@@ -239,13 +231,10 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-/* =========================================
-   TOPICS SECTION
-   ========================================= */
 .topics-section {
     text-align: center;
-    margin-top: 140px; 
-    margin-bottom: 100px; 
+    margin-top: 50px; 
+    margin-bottom: 60px; 
 }
 
 .topics-section h3 {
@@ -257,14 +246,17 @@ body {
 
 .topics-box {
     width: 1130px; 
-    height: 142px; 
+    min-height: 142px; 
+    height: auto; 
     background-color: var(--box-white);
     border-radius: 12px; 
     margin: 0 auto;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 0 50px; 
+    flex-wrap: wrap; 
+    padding: 20px 50px; 
+    gap: 20px; 
     box-sizing: border-box;
     box-shadow: 0 4px 10px rgba(0,0,0,0.03); 
 }
@@ -278,22 +270,17 @@ body {
 
 .topic-item img { height: 60px; width: auto; margin-bottom: 10px; }
 
-/* =========================================
-   MAIN GRID (SIDEBAR + POSTS)
-   ========================================= */
 .content-grid {
     display: flex;
     gap: 114px; 
     justify-content: center;
 }
 
-/* --- SIDEBAR --- */
 .sidebar { width: 382px; }
 .sidebar-section { margin-bottom: 50px; }
 .sidebar-title { font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
 .sidebar-icon { width: 20px; height: 20px; }
 
-/* Box: Sobre mi */
 .box-sobre-mi {
     width: 338px;
     height: auto; 
@@ -316,7 +303,6 @@ body {
 .social-icons-left img { width: 20px; height: 20px; opacity: 0.8; transition: opacity 0.3s ease; }
 .social-icons-left img:hover { opacity: 1; }
 
-/* Box: Tag Cloud */
 .box-tag-cloud ul {
     list-style-type: none !important; 
     padding: 0;
@@ -338,7 +324,6 @@ body {
 .box-tag-cloud li:nth-child(6) .bullet { background-color: #06D6A0; }
 .box-tag-cloud li:hover { transform: translateX(3px); font-weight: 500; }
 
-/* Box: Recently Uploaded */
 .box-recent {
     width: 382px;
     background-color: var(--box-white);
@@ -367,7 +352,6 @@ body {
 .recent-title:hover { color: var(--accent-purple); }
 .recent-date { font-size: 11px; color: #888888; font-weight: 400; }
 
-/* --- POSTS AREA --- */
 .posts-area { width: 864px; }
 
 .post-card {
@@ -387,9 +371,6 @@ body {
 .post-tags { font-size: 10px; display: flex; align-items: center; gap: 14px; }
 .admin-actions a { text-decoration: none; margin-left: 10px; }
 
-/* =========================================
-   BOTÓN AÑADIR POST (Admin)
-   ========================================= */
 .admin-header {
     display: flex;
     justify-content: flex-end; 
@@ -415,9 +396,6 @@ body {
 
 .btn-add-post:hover { background-color: var(--logo-tonic); }
 
-/* =========================================
-   FOOTER
-   ========================================= */
 footer {
     text-align: center;
     font-size: 12px;
@@ -426,25 +404,18 @@ footer {
     padding-bottom: 20px;
 }
 
-/* =========================================
-   INDIVIDUAL POST VIEW (Lectura Completa)
-   ========================================= */
-
-/* Hacemos que los títulos de la portada cambien de color al pasar el mouse */
 .post-title-link {
     color: var(--text-main) !important;
     text-decoration: none !important;
 }
 
-/* Si quieres que siga sin cambiar de color al pasar el ratón, lo dejamos igual */
 .post-title-link:hover {
     color: var(--text-main) !important;
     text-decoration: none !important;
 }
 
-/* La caja gigante blanca para leer el post */
 .full-post-wrapper {
-    width: 864px; /* Exactamente el mismo ancho que tus tarjetas de la portada */
+    width: 864px; 
     background-color: var(--box-white);
     border-radius: 12px;
     padding: 50px 60px;
@@ -453,7 +424,6 @@ footer {
     margin: 0 auto;
 }
 
-/* Botón de volver atrás */
 .btn-back {
     display: inline-flex;
     align-items: center;
@@ -469,7 +439,6 @@ footer {
     color: var(--accent-purple);
 }
 
-/* Encabezado del post */
 .full-post-header {
     text-align: center;
     margin-bottom: 40px;
@@ -491,7 +460,6 @@ footer {
     color: var(--text-light);
 }
 
-/* Imagen de portada gigante */
 .full-post-image {
     width: 100%;
     height: 400px;
@@ -500,13 +468,12 @@ footer {
     margin-bottom: 40px;
 }
 
-/* El texto del post */
 .full-post-body {
     font-size: 15px;
     line-height: 1.9;
     color: var(--text-main);
     text-align: left;
-    white-space: pre-wrap; /* ¡Magia! Esto respeta los saltos de línea de tu base de datos */
+    white-space: pre-wrap; 
 }
 
 .alert-box {
@@ -519,12 +486,12 @@ footer {
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    animation: fadeOut 5s forwards; /* Se desvanecerá solo después de 5 segundos */
+    animation: fadeOut 5s forwards; 
 }
 
 .alert-success {
-    background-color: #D1FAE5; /* Verde menta pastel */
-    color: #065F46; /* Verde oscuro */
+    background-color: #D1FAE5; 
+    color: #065F46; 
     border: 1px solid #A7F3D0;
 }
 
@@ -538,4 +505,75 @@ footer {
     0% { opacity: 1; }
     80% { opacity: 1; }
     100% { opacity: 0; display: none; }
+}
+
+.modal-overlay {
+    display: none; 
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px); 
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--box-white);
+    padding: 40px;
+    border-radius: 12px;
+    width: 500px;
+    max-width: 90%;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    position: relative;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    color: var(--text-light);
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-modal:hover {
+    color: var(--accent-purple);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 24px;
+    height: 48px;
+    width: 100%;
+    background-color: transparent;
+    border: 2px solid #ff4d4d;
+    border-radius: 8px;
+    color: #ff4d4d;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.btn-logout:hover {
+    background-color: #ff4d4d;
+    color: white;
 }

@@ -3,6 +3,31 @@
 class Controller_Posts extends Controller_Template {
     
     public function action_index() {
+        if (Input::method() == 'POST' && Input::post('email')) {
+            $correo_usuario = Input::post('email');
+            $subscriber = new Model_Subscriber();
+            $subscriber->email = $correo_usuario;
+            $subscriber->save();
+
+            Package::load('email'); 
+            $email = Email::forge();
+            $email->from('mariana@codeandtonic.com', 'Mariana de Code&Tonic'); 
+            $email->to($correo_usuario);
+            $email->subject('¡Bienvenido/a a Code&Tonic! 🍹✨');
+
+            $mensaje = "¡Hola!\n\nMuchísimas gracias por conectar conmigo...";
+            $email->body($mensaje);
+
+            try {
+                $email->send();
+                Session::set_flash('success', '¡Gracias por conectar!');
+            } catch (\Exception $e) {
+                Session::set_flash('success', '¡Tu correo se ha guardado! (Localhost mode)');
+            }
+            
+            return Response::redirect('posts');
+        }
+
         $posts = Model_Post::find('all', array('order_by' => array('created_at' => 'desc')));
         $data = array('posts' => $posts);
         $this->template->title = 'Blog Code & Tonic';
@@ -14,30 +39,67 @@ class Controller_Posts extends Controller_Template {
             $post = new Model_Post();
             $post->title = Input::post('title');
             $post->category = Input::post('category'); 
-            $post->slug = Input::post('slug');
-            $post->excerpt = Input::post('excerpt');
             $post->content = Input::post('content');
-            $post->image_url = Input::post('image_url');
-            $post->status = Input::post('status');
+
+            // 🌟 MAGIA BACKEND: Procesar el archivo subido
+            $config = array(
+                'path' => DOCROOT.'assets/img',
+                'randomize' => false,
+                'ext_whitelist' => array('img', 'jpg', 'jpeg', 'gif', 'png'),
+            );
+            Upload::process($config);
+
+            if (Upload::is_valid()) {
+                Upload::save();
+                $file = Upload::get_files(0);
+                $post->image_url = '/myblog/public/assets/img/' . $file['saved_as'];
+            } else {
+                $post->image_url = '/myblog/public/assets/img/coding.jpg'; // Imagen por defecto si falla
+            }
+
             $post->save();
             
-            Session::set_flash('success', '¡Post añadido correctamente!');
-            Response::redirect('/myblog/public/posts');
+            Session::set_flash('success', '¡Post añadido!');
+            return Response::redirect('posts');
         }
-        $this->template->title = 'Añadir Post';
         $this->template->content = View::forge('post/add');
     }
 
-    // --- AQUÍ ESTÁ LA VERSIÓN CORREGIDA Y ÚNICA DE action_view ---
-    public function action_view($id = null) {
-        // Si no mandan ID, lo regresamos a la portada
-        is_null($id) and Response::redirect('/myblog/public/posts');
+    public function action_add_topic() {
+        if(Input::post('send_topic')){
+            $name = ucwords(strtolower(trim(Input::post('topic_name'))));
 
+            // 🌟 MAGIA BACKEND: Procesar la imagen del tópico
+            $config = array(
+                'path' => DOCROOT.'assets/img',
+                'randomize' => false,
+                'ext_whitelist' => array('img', 'jpg', 'jpeg', 'gif', 'png'),
+            );
+            Upload::process($config);
+
+            if (Upload::is_valid()) {
+                Upload::save();
+                $file = Upload::get_files(0);
+                $image_path = '/myblog/public/assets/img/' . $file['saved_as'];
+            } else {
+                $image_path = '/myblog/public/assets/img/coding.jpg'; // Imagen por defecto
+            }
+
+            $custom_topics = Session::get('custom_topics', array());
+            $custom_topics[$name] = $image_path;
+            Session::set('custom_topics', $custom_topics);
+
+            Session::set_flash('success', '¡Tópico "' . $name . '" añadido correctamente a la portada!');
+            return Response::redirect('posts');
+        }
+    }
+
+    public function action_view($id = null) {
+        is_null($id) and Response::redirect('posts');
         $post = Model_Post::find($id);
         $data = array('post' => $post);
-        
         $this->template->title = 'Ver Post';
-        $this->template->content = View::forge('post/view', $data); // Nota que dice 'post/view'
+        $this->template->content = View::forge('post/view', $data); 
     }
 
     public function action_edit($id) {
@@ -53,7 +115,7 @@ class Controller_Posts extends Controller_Template {
             $post->save();
             
             Session::set_flash('success', '¡Post actualizado!');
-            Response::redirect('/myblog/public/posts');
+            return Response::redirect('posts');
         }
         $data = array('post' => $post);
         $this->template->title = 'Editar Post';
@@ -66,38 +128,29 @@ class Controller_Posts extends Controller_Template {
             $post->delete();
             Session::set_flash('success', '¡Post eliminado!');
         }
-        Response::redirect('/myblog/public/posts'); 
+        return Response::redirect('posts'); 
     } 
 
-    // --- LÓGICA DE LOGIN ---
-    public function action_login()
-    {
-        if (Session::get('logged_in')) {
-            Response::redirect('/myblog/public/posts');
-        }
-
+    public function action_login() {
+        if (Session::get('logged_in')) { return Response::redirect('posts'); }
         if (Input::method() == 'POST') {
             $username = Input::post('username');
             $password = Input::post('password');
-
             if ($username === 'admin' && $password === '123') {
                 Session::set('logged_in', true);
-                Session::set_flash('success', '¡Bienvenida de vuelta!');
-                Response::redirect('/myblog/public/posts');
+                Session::set_flash('success', '¡Bienvenida!');
+                return Response::redirect('posts');
             } else {
-                Session::set_flash('error', 'Usuario o contraseña incorrectos.');
-                Response::redirect('/myblog/public/posts/login');
+                Session::set_flash('error', 'Datos incorrectos.');
+                return Response::redirect('posts/login');
             }
         }
-
-        $this->template->title = "Iniciar Sesión - Code & Tonic";
         $this->template->content = View::forge('post/login');
     }
 
-    // --- LÓGICA DE LOGOUT ---
-    public function action_logout()
-    {
-        Session::destroy();
-        Response::redirect('/myblog/public/posts');
+    public function action_logout() {
+        Session::delete('logged_in');
+        Session::set_flash('success', '¡Has cerrado sesión correctamente!');
+        return Response::redirect('posts/login');
     }
 }
