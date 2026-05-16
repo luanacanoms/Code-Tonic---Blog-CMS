@@ -109,10 +109,10 @@
     </div>
     <div class="hero-text">
         <h1>Hola, soy <span>Mariana</span></h1>
-        <p>Soy una estudiante de ingeniería informática en España. Me gusta trabajar con el backend of the web, esto es mi blog Code&Tonic where I share a bit of my personal projects.</p>
+        <p>Soy una estudiante de ingeniería informática en España. Me gusta trabajar con el backend of the web, esto es mi blog Code&Tonic donde comparto un poco de mis proyectos personales.</p>
         
         <form class="connect-form" action="" method="POST">
-            <label>Let's Connect</label>
+            <label>Conectémonos</label>
             <div class="form-row">
                 <input type="email" name="email" placeholder="Tu correo electrónico" required>
                 <button type="submit">Enviar</button>

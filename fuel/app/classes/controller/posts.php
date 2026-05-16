@@ -41,7 +41,6 @@ class Controller_Posts extends Controller_Template {
             $post->category = Input::post('category'); 
             $post->content = Input::post('content');
 
-            // 🌟 MAGIA BACKEND: Procesar el archivo subido
             $config = array(
                 'path' => DOCROOT.'assets/img',
                 'randomize' => false,
@@ -69,7 +68,6 @@ class Controller_Posts extends Controller_Template {
         if(Input::post('send_topic')){
             $name = ucwords(strtolower(trim(Input::post('topic_name'))));
 
-            // 🌟 MAGIA BACKEND: Procesar la imagen del tópico
             $config = array(
                 'path' => DOCROOT.'assets/img',
                 'randomize' => false,
@@ -103,6 +101,8 @@ class Controller_Posts extends Controller_Template {
     }
 
     public function action_edit($id) {
+        if (!Session::get('logged_in')) { return Response::redirect('posts/login'); }
+
         $post = Model_Post::find($id);
         if (Input::post('send')) {
             $post->title = Input::post('title');
@@ -122,14 +122,16 @@ class Controller_Posts extends Controller_Template {
         $this->template->content = View::forge('post/edit', $data, false);
     }
 
-    public function action_delete($id) {
+   public function action_delete($id) {
+        if (!Session::get('logged_in')) { return Response::redirect('posts/login'); }
+
         $post = Model_Post::find($id);
         if ($post) {
             $post->delete();
             Session::set_flash('success', '¡Post eliminado!');
         }
         return Response::redirect('posts'); 
-    } 
+    }
 
     public function action_login() {
         if (Session::get('logged_in')) { return Response::redirect('posts'); }
